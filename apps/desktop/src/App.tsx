@@ -1,10 +1,7 @@
 import { useState } from 'react'
 import './App.css'
-
-type HealthResponse = {
-  status: string
-  service: string
-}
+import { fetchHealth, type HealthResponse } from './lib/api/health'
+import { toErrorMessage } from './lib/errors'
 
 function App() {
   const [isLoading, setIsLoading] = useState(false)
@@ -16,19 +13,13 @@ function App() {
     setError(null)
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/health')
-
-      if (!response.ok) {
-        throw new Error(`Request failed with status ${response.status}`)
-      }
-
-      const data = (await response.json()) as HealthResponse
+      const data = await fetchHealth()
       setHealth(data)
     } catch (requestError) {
-      const message =
-        requestError instanceof Error
-          ? requestError.message
-          : 'Unknown error while checking backend health'
+      const message = toErrorMessage(
+        requestError,
+        'Unknown error while checking backend health',
+      )
       setError(message)
       setHealth(null)
     } finally {
