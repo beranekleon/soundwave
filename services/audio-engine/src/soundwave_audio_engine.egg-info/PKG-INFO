@@ -1,0 +1,12 @@
+Metadata-Version: 2.4
+Name: soundwave-audio-engine
+Version: 0.1.0
+Summary: soundwave local audio analysis service
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: fastapi>=0.115.0
+Requires-Dist: uvicorn[standard]>=0.30.0
+
+# audio-engine
+
+Python service responsible for scanning audio files, extracting features, and duplicate detection.

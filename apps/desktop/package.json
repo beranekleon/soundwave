@@ -1,0 +1,9 @@
+{
+	"name": "@soundwave/desktop",
+	"version": "0.1.0",
+	"private": true,
+	"description": "soundwave desktop frontend (React + TypeScript + Tauri)",
+	"scripts": {},
+	"dependencies": {},
+	"devDependencies": {}
+}
