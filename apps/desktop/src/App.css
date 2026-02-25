@@ -1,0 +1,40 @@
+.app-shell {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.app-shell h1 {
+  margin-bottom: 1rem;
+}
+
+.card {
+  border: 1px solid #3b3b3b;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.card h2 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+button {
+  margin-bottom: 0.75rem;
+}
+
+.status {
+  margin: 0;
+}
+
+.status.error {
+  color: #ff7b72;
+}
+
+.status.success {
+  color: #3fb950;
+}
+
+.status.idle {
+  color: #9a9a9a;
+}
