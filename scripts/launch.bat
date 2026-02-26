@@ -1,25 +1,22 @@
 @echo off
 setlocal
 
-set "REPO_ROOT=%~dp0.."
-set "BACKEND_DIR=%REPO_ROOT%\services\audio-engine"
+for %%I in ("%~dp0..") do set "REPO_ROOT=%%~fI"
 set "DESKTOP_DIR=%REPO_ROOT%\apps\desktop"
 
-REM Run from repository root to launch backend + desktop dev shell.
-start "soundwave-backend" cmd /k "cd /d ""%BACKEND_DIR%"" && python -m uvicorn audio_engine.main:app --reload --port 8000"
-
 if not exist "%DESKTOP_DIR%\package.json" (
-	echo Could not find desktop package.json at:
-	echo   %DESKTOP_DIR%\package.json
-	exit /b 1
+  echo Could not find desktop package.json at:
+  echo   %DESKTOP_DIR%\package.json
+  exit /b 1
 )
 
-npm --prefix "%DESKTOP_DIR%" run tauri:dev
-set "EXIT_CODE=%ERRORLEVEL%"
+echo Launching soundwave backend...
+start "soundwave-backend" cmd /k call "%~dp0dev\start-backend.bat"
 
-if not "%EXIT_CODE%"=="0" (
-	echo.
-	echo Failed to launch desktop app. Ensure dependencies are installed in apps\desktop:
-	echo   npm install
-	exit /b %EXIT_CODE%
-)
+echo Launching soundwave desktop...
+start "soundwave-desktop" cmd /k "npm --prefix ""%DESKTOP_DIR%"" run tauri:dev"
+
+echo.
+echo Started both processes in separate terminals:
+echo   - soundwave-backend
+echo   - soundwave-desktop
